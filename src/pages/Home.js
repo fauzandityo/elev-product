@@ -30,6 +30,11 @@ class Home extends React.Component {
     this.postApi(args)
       .then(({ data }) => {
         if (data.statusCode === "010") {
+          if (!data.data.length > 0) {
+            args = { code: 0 }
+            this.postApi(args)
+              .then(({ data }) => this.forceUpdate();)
+          }
           this.setState({
             products: data.data
           })
